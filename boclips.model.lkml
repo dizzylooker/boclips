@@ -1,4 +1,4 @@
-connection: "connection_name"
+connection: "bigquery"
 
 include: "*.view.lkml"                       # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
@@ -17,3 +17,22 @@ include: "*.view.lkml"                       # include all views in this project
 #     sql_on: ${users.id} = ${orders.user_id} ;;
 #   }
 # }
+
+explore: playback {
+  join: videos {
+    relationship: many_to_one
+    sql_on: ${playback.video_id} = ${videos.id} ;;
+  }
+#   join: subject {
+#     relationship: one_to_many
+#     sql: LEFT JOIN unnest(video.subjects) as subject ;;
+#   }
+#   join: video_ages {
+#     relationship: one_to_many
+#     sql: LEFT JOIN unnest(video.ages) as age ;;
+#   }
+  join: users {
+    relationship: many_to_one
+    sql_on: ${playback.user_id} = ${users.id} ;;
+  }
+}
