@@ -39,4 +39,7 @@ explore: playback {
   }
 }
 
+explore: users
+{}
+
 # Views for unnest
