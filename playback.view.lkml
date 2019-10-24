@@ -48,10 +48,10 @@ view: playback {
     sql: ${TABLE}.secondsWatched ;;
   }
 
-  dimension: subjects {
-    type: string
-    sql: ${TABLE}.subjects ;;
-  }
+#   dimension: subjects {
+#     type: string
+#     sql: ${TABLE}.subjects ;;
+#   } UNNESTED ELSEWHERE
 
   dimension_group: timestamp {
     type: time
@@ -62,6 +62,7 @@ view: playback {
       week,
       month,
       quarter,
+      day_of_week_index,
       year
     ]
     sql: ${TABLE}.timestamp ;;
@@ -89,12 +90,18 @@ view: playback {
     sql: ${TABLE}.videoId ;;
   }
 
+  dimension: months_since_signup {
+    type: number
+    sql: DATE_DIFF(CAST(${timestamp_raw} as DATE),${users.creation_raw},MONTH) ;;
+  }
+
+  dimension: is_wtd {
+    type: yesno
+    sql: ${timestamp_day_of_week_index} < EXTRACT(DAYOFWEEK FROM CURRENT_DATE());;
+  }
+
   measure: count {
     type: count
-#     filters: {
-#       field: seconds_watched
-#       value: "> 5"
-#     }
     drill_fields: [detail*]
   }
 
@@ -103,16 +110,19 @@ view: playback {
     sql: ${seconds_watched} ;;
   }
 
+  measure: seconds_watched_per_video {
+    type: number
+    value_format_name: decimal_2
+    sql: ${total_seconds_watched}/NULLIF(${count},0) ;;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      playback_id,
       parent_organisation_name,
       organisation_name,
-      videos.id,
-      users.organisation_name,
-      users.parent_organisation_name,
-      users.id
+      videos.count,
+      total_seconds_watched
     ]
   }
 }

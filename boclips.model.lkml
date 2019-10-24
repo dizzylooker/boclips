@@ -25,9 +25,9 @@ explore: playback {
     relationship: many_to_one
     sql_on: ${playback.video_id} = ${videos.id} ;;
   }
-  join: subjects {
+  join: unnest_subjects {
     relationship: one_to_many
-    sql: LEFT JOIN UNNEST(subjects) as subject ;;
+    sql: LEFT JOIN UNNEST(playback.subjects) as single_subject ;;
   }
   # join: ages { DISALLOWED?
   #   relationship: one_to_many

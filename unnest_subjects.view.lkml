@@ -1,5 +1,5 @@
-view: subjects {
-  dimension: subject {
-    sql: subject ;;
+view: unnest_subjects {
+  dimension: single_subject {
+    sql: single_subject ;;
   }
 }

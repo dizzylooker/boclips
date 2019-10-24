@@ -23,10 +23,10 @@ view: videos {
     sql: ${TABLE}.playbackProvider ;;
   }
 
-  dimension: subjects {
-    type: string
-    sql: ${TABLE}.subjects ;;
-  }
+#   dimension: subjects {
+#     type: string
+#     sql: ${TABLE}.subjects ;;
+#   } UNNESTED ELSEWHERE...
 
   measure: count {
     type: count
