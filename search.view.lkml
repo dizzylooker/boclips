@@ -30,6 +30,13 @@ view: search {
     sql: ${TABLE}.userId ;;
   }
 
+  dimension: pk {
+    hidden: yes
+    primary_key: yes
+    type: string
+    sql: CONCAT(CAST(${timestamp_raw} AS STRING),${user_id}) ;;
+  }
+
   dimension: video_seconds_played {
     type: number
     sql: ${TABLE}.videoSecondsPlayed ;;
