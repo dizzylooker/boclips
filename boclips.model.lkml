@@ -42,4 +42,6 @@ explore: playback {
 explore: users
 {}
 
+explore: search {}
+
 # Views for unnest
