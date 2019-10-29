@@ -23,9 +23,17 @@ view: users {
     sql: ${TABLE}.creationDate ;;
   }
 
-  dimension: organisation_name {
+  dimension: organisation_name_raw {
+    hidden: yes
     type: string
     sql: ${TABLE}.organisationName ;;
+  }
+
+  dimension: organisation_name {
+    type: string
+    sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN ${organisation_name_raw}
+         ELSE CAST(MD5(${organisation_name_raw}) as STRING)
+         END;;
   }
 
   dimension: organisation_type {
