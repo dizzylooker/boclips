@@ -34,6 +34,7 @@ explore: playback {
   #   sql: LEFT JOIN UNNEST(ages) as age ;;
   # }
   join: users {
+    type: full_outer
     relationship: many_to_one
     sql_on: ${playback.user_id} = ${users.id} ;;
   }
