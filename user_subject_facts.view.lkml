@@ -28,6 +28,7 @@ view: user_subject_facts {
   }
 
   dimension: unnest_subjects_single_subject {
+    label: "Teacher Subject"
     type: string
     sql: ${TABLE}.unnest_subjects_single_subject ;;
   }
