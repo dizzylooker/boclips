@@ -40,6 +40,6 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [id, organisation_name, parent_organisation_name, playback.count]
+    drill_fields: [organisation_name, user_subject_facts.unnest_subjects_single_subject, count]
   }
 }

@@ -23,6 +23,11 @@ view: videos {
     sql: ${TABLE}.playbackProvider ;;
   }
 
+  dimension: title {
+    type: string
+    sql: ${TABLE}.title ;;
+  }
+
 #   dimension: subjects {
 #     type: string
 #     sql: ${TABLE}.subjects ;;
@@ -30,6 +35,6 @@ view: videos {
 
   measure: count {
     type: count
-    drill_fields: [id, playback.count]
+    drill_fields: [title, playback.count]
   }
 }

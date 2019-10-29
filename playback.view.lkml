@@ -133,12 +133,17 @@ view: playback {
     sql: ${total_seconds_watched}/NULLIF(${count},0) ;;
   }
 
+  measure: viewer_count {
+    type: count_distinct
+    sql: ${user_id};;
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      parent_organisation_name,
-      organisation_name,
-      videos.count,
+      unnest_subjects.single_subject,
+      videos.title,
+      viewer_count,
       total_seconds_watched
     ]
   }
