@@ -78,6 +78,6 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [organisation_name, user_subject_facts.unnest_subjects_single_subject, name]
+    drill_fields: [name, email, organisation_name, user_subject_facts.unnest_subjects_single_subject]
   }
 }
