@@ -71,6 +71,11 @@ view: users {
     sql: ${TABLE}.organisationPostcode ;;
   }
 
+  dimension: subjects {
+    type: string
+    sql: ARRAY_TO_STRING(${TABLE}.subjects , ", ", "/") ;;
+  }
+
   dimension: parent_organisation_name {
     type: string
     sql: ${TABLE}.parentOrganisationName ;;
@@ -78,6 +83,6 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [name, email, organisation_name, user_subject_facts.unnest_subjects_single_subject]
+    drill_fields: [name, email, organisation_name, subjects]
   }
 }
