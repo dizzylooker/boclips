@@ -23,6 +23,19 @@ view: users {
     sql: ${TABLE}.creationDate ;;
   }
 
+  dimension: first_name_raw {
+    hidden: yes
+    type:  string
+    sql:  ${TABLE}.firstName ;;
+  }
+
+  dimension: first_name {
+    type: string
+    sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN ${first_name_raw}
+         ELSE CAST(MD5(${first_name_raw}) as STRING)
+         END;;
+  }
+
   dimension: organisation_name_raw {
     hidden: yes
     type: string
