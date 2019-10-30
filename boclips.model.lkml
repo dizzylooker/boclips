@@ -44,7 +44,12 @@ explore: playback {
   }
 }
 
-explore: users {}
+explore: users {
+  join: user_subject_facts {
+    relationship: many_to_many
+    sql_on: ${users.id} = ${user_subject_facts.playback_user_id} ;;
+  }
+}
 
 explore: search {
   join: user_subject_facts {

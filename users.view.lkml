@@ -29,24 +29,22 @@ view: users {
     sql:  ${TABLE}.firstName ;;
   }
 
-  dimension: first_name {
-    type: string
-    sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN ${first_name_raw}
-         ELSE 'Name Hidden'
-         END;;
+  dimension: last_name_raw {
+    hidden: yes
+    type:  string
+    sql:  ${TABLE}.lastName ;;
   }
 
-  dimension: organisation_name_raw {
-    hidden: yes
+  dimension: name {
     type: string
-    sql: ${TABLE}.organisationName ;;
+    sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN CONCAT(${first_name_raw}," ",${last_name_raw})
+         ELSE 'Name Hidden'
+         END;;
   }
 
   dimension: organisation_name {
     type: string
-    sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN ${organisation_name_raw}
-         ELSE 'Name Hidden'
-         END;;
+    sql: ${TABLE}.organisationName ;;
   }
 
   dimension: organisation_type {
@@ -67,6 +65,6 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [organisation_name, user_subject_facts.unnest_subjects_single_subject, count]
+    drill_fields: [organisation_name, user_subject_facts.unnest_subjects_single_subject, name]
   }
 }
