@@ -38,7 +38,20 @@ view: users {
   dimension: name {
     type: string
     sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN CONCAT(${first_name_raw}," ",${last_name_raw})
-         ELSE 'Name Hidden'
+         ELSE 'Hidden'
+         END;;
+  }
+
+  dimension: email_raw {
+    hidden:  yes
+    type:  string
+    sql: ${TABLE}.email ;;
+  }
+
+  dimension: email {
+    type: string
+    sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN ${email_raw}
+         ELSE 'Hidden'
          END;;
   }
 
