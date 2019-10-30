@@ -32,7 +32,7 @@ view: users {
   dimension: first_name {
     type: string
     sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN ${first_name_raw}
-         ELSE CAST(MD5(${first_name_raw}) as STRING)
+         ELSE 'Name Hidden'
          END;;
   }
 
@@ -45,7 +45,7 @@ view: users {
   dimension: organisation_name {
     type: string
     sql: CASE WHEN '{{_user_attributes["can_see_ppi"]}}' = 'yes' THEN ${organisation_name_raw}
-         ELSE CAST(MD5(${organisation_name_raw}) as STRING)
+         ELSE 'Name Hidden'
          END;;
   }
 
