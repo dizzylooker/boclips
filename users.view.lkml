@@ -41,6 +41,12 @@ view: users {
     sql: ${TABLE}.organisationType ;;
   }
 
+  dimension: postcode {
+    type: string
+    map_layer_name: us_zipcode_tabulation_areas
+    sql: ${TABLE}.organisationPostcode ;;
+  }
+
   dimension: parent_organisation_name {
     type: string
     sql: ${TABLE}.parentOrganisationName ;;
