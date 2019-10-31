@@ -83,6 +83,6 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [name, email, organisation_name, subjects]
+    drill_fields: [name, email, parent_organisation_name, organisation_name, subjects]
   }
 }
