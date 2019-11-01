@@ -59,6 +59,7 @@ view: playback {
       raw,
       time,
       date,
+      hour_of_day,
       week,
       month,
       quarter,
@@ -95,6 +96,16 @@ view: playback {
     sql: DATE_DIFF(CAST(${timestamp_raw} as DATE),${users.creation_raw},MONTH) ;;
   }
 
+  dimension: is_classroom_time {
+    type: yesno
+    sql: ${timestamp_hour_of_day} BETWEEN 9 AND 17 ;;
+  }
+
+  dimension: is_shared {
+    type: yesno
+    sql: ${referer_id} IS NOT NULL ;;
+  }
+
   dimension: is_wtd {
     type: yesno
     sql: ${timestamp_day_of_week_index} < EXTRACT(DAYOFWEEK FROM CURRENT_DATE());;
@@ -121,6 +132,20 @@ view: playback {
     sql: ${user_id};;
   }
 
+  measure: classroom_view_count {
+    type: count
+    filters: {
+      field: is_classroom_time
+      value: "yes"
+    }
+  }
+
+  measure: classroom_view_pct {
+    type: number
+    value_format_name: percent_2
+    sql: 1.00*(${classroom_view_count}/NULLIF(${count},0)) ;;
+  }
+
   measure: viewer_count_30d {
     type: count_distinct
     sql: ${user_id};;
@@ -128,6 +153,20 @@ view: playback {
       field: timestamp_date
       value: "last 30 days"
     }
+  }
+
+  measure: shared_count {
+    type: count
+    filters: {
+      field: is_shared
+      value: "yes"
+    }
+  }
+
+  measure: pct_shared {
+    type: number
+    value_format_name: percent_2
+    sql: 1.00*(${shared_count}/NULLIF(${count},0)) ;;
   }
 
   # ----- Sets of fields for drilling ------
