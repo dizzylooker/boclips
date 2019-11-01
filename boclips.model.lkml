@@ -42,12 +42,26 @@ explore: playback {
     relationship: many_to_many
     sql_on: ${playback.user_id} = ${user_subject_facts.playback_user_id} ;;
   }
+  join: retention_30d {
+    from: playback
+    fields: []
+    relationship: one_to_many
+    sql_on: ${users.id} = ${retention_30d.user_id} AND
+      (((${retention_30d.timestamp_raw} ) >= ((TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY))) AND (${retention_30d.timestamp_raw} ) < ((TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY), INTERVAL 30 DAY))))) ;;
+  }
 }
 
 explore: users {
   join: user_subject_facts {
     relationship: many_to_many
     sql_on: ${users.id} = ${user_subject_facts.playback_user_id} ;;
+  }
+  join: retention_30d {
+    from: playback
+    fields: []
+    relationship: one_to_many
+    sql_on: ${users.id} = ${retention_30d.user_id} AND
+    (((${retention_30d.timestamp_raw} ) >= ((TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY))) AND (${retention_30d.timestamp_raw} ) < ((TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY), INTERVAL 30 DAY))))) ;;
   }
 }
 

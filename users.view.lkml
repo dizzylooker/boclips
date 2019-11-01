@@ -60,6 +60,11 @@ view: users {
     sql: ${TABLE}.organisationName ;;
   }
 
+  dimension: is_retained_30d {
+    type: yesno
+    sql: ${retention_30d.user_id} IS NOT NULL;;
+  }
+
   dimension: organisation_type {
     type: string
     sql: ${TABLE}.organisationType ;;
@@ -84,5 +89,20 @@ view: users {
   measure: count {
     type: count
     drill_fields: [name, email, parent_organisation_name, organisation_name, subjects]
+  }
+
+  measure: count_retained_30d {
+    hidden: yes
+    type: count
+    filters: {
+      field: is_retained_30d
+      value: "yes"
+    }
+  }
+
+  measure: 30d_retention_pct {
+    type: number
+    value_format_name: percent_2
+    sql: 1.00*(${count_retained_30d}/NULLIF(${count},0)) ;;
   }
 }

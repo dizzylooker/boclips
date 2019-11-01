@@ -121,6 +121,15 @@ view: playback {
     sql: ${user_id};;
   }
 
+  measure: viewer_count_30d {
+    type: count_distinct
+    sql: ${user_id};;
+    filters: {
+      field: timestamp_date
+      value: "last 30 days"
+    }
+  }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
