@@ -91,3 +91,13 @@ explore: events_sessionized {
     sql_on: ${sessions.unique_session_id} = ${session_facts.unique_session_id} ;;
   }
 }
+
+explore: funnel_explorer {
+
+  always_filter: {
+    filters: {
+      field: event_time
+      value: "30 days"
+    }
+  }
+}
