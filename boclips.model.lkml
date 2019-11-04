@@ -72,4 +72,22 @@ explore: search {
   }
 }
 
+explore: simple_funnel_events {}
+
 # Views for unnest
+
+explore: events_sessionized {
+
+  join: sessions {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${events_sessionized.unique_session_id} = ${sessions.unique_session_id} ;;
+  }
+
+  join: session_facts {
+    relationship: many_to_one
+    type: inner
+    view_label: "Sessions"
+    sql_on: ${sessions.unique_session_id} = ${session_facts.unique_session_id} ;;
+  }
+}
