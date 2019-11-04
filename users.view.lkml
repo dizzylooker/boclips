@@ -8,6 +8,11 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: is_mtd {
+    type: yesno
+    sql: ${creation_day_of_month} < EXTRACT(DAY FROM CURRENT_DATE());;
+  }
+
   dimension_group: creation {
     type: time
     timeframes: [
@@ -16,6 +21,7 @@ view: users {
       week,
       month,
       quarter,
+      day_of_month,
       year
     ]
     convert_tz: no
