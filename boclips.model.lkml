@@ -90,6 +90,12 @@ explore: events_sessionized {
     view_label: "Sessions"
     sql_on: ${sessions.unique_session_id} = ${session_facts.unique_session_id} ;;
   }
+
+  join: simple_funnel_events {
+    relationship: one_to_one
+    sql_on: ${events_sessionized.timestamp_raw} = ${simple_funnel_events.timestamp_raw}
+    AND ${events_sessionized.user_id} = ${simple_funnel_events.userid};;
+  }
 }
 
 explore: funnel_explorer {

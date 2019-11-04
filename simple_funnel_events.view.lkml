@@ -1,8 +1,8 @@
 view: simple_funnel_events {
   derived_table: {
-    sql: SELECT timestamp, userid, 'Search' as event FROM `boclips-prod.analytics.search`
-      UNION ALL
-      SELECT timestamp, userid, 'Playback' as event FROM `boclips-prod.analytics.playback`
+    sql: SELECT timestamp, userid, 'Search' as event, query as detail FROM `boclips-prod.analytics.search`
+UNION ALL
+SELECT timestamp, userid, 'Playback' as event, videos.title as detail FROM `boclips-prod.analytics.playback` playback JOIN `boclips-prod.analytics.videos` videos ON playback.videoId = videos.id
        ;;
 #     sql_trigger_value: SELECT CURRENT_DATE() ;;
   }
@@ -25,6 +25,11 @@ view: simple_funnel_events {
   dimension: event {
     type: string
     sql: ${TABLE}.event ;;
+  }
+
+  dimension: detail {
+    type: string
+    sql: ${TABLE}.detail ;;
   }
 
   set: detail {

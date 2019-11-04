@@ -35,6 +35,11 @@ WHERE
     sql: ${TABLE}.event_id ;;
   }
 
+  dimension_group: timestamp {
+    type: time
+    sql: ${TABLE}.created_at ;;
+  }
+
   dimension: user_id {
     type: number
     sql: ${TABLE}.user_id ;;
@@ -76,18 +81,8 @@ WHERE
 
   set: detail {
     fields: [
-      event_id,
-      #ip_address,
-      user_id,
-      #os,
-      traffic_source,
-      #event_time_time,
-      unique_session_id,
-      event_sequence_within_session,
-      inverse_event_sequence_within_session,
-      #user_first_session_time,
-      #session_landing_page,
-      #session_exit_page
+      simple_funnel_events.event,
+      simple_funnel_events.detail
     ]
   }
 }
