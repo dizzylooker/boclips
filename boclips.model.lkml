@@ -107,3 +107,11 @@ explore: funnel_explorer {
     }
   }
 }
+
+
+explore: collections {
+  join: users {
+    relationship: many_to_one
+    sql_on: ${collections.owner_id} = ${users.id} ;;
+  }
+}
