@@ -121,6 +121,11 @@ view: playback {
     sql: ${seconds_watched} ;;
   }
 
+  measure: total_hours_watched {
+    type: sum
+    sql: ${seconds_watched}/3600 ;;
+  }
+
   measure: seconds_watched_per_video {
     type: number
     value_format_name: decimal_2
