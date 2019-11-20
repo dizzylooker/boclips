@@ -123,6 +123,7 @@ view: playback {
 
   measure: total_hours_watched {
     type: sum
+    value_format_name: decimal_1
     sql: ${seconds_watched}/3600 ;;
   }
 
@@ -135,6 +136,15 @@ view: playback {
   measure: viewer_count {
     type: count_distinct
     sql: ${user_id};;
+  }
+
+  measure: referer_count {
+    type: count_distinct
+    filters: {
+      field: referer_id
+      value: "-NULL"
+    }
+    sql: ${referer_id} ;;
   }
 
   measure: classroom_view_count {
