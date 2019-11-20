@@ -48,8 +48,11 @@ view: collections {
   }
 
   dimension: public {
-    type: yesno
-    sql: ${TABLE}.public ;;
+    type: string
+    sql: CASE
+    WHEN ${TABLE}.public = true THEN 'Public'
+    ELSE 'Private'
+    END ;;
   }
 
   dimension: subjects {
