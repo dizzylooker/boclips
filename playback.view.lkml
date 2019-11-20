@@ -101,14 +101,14 @@ view: playback {
     sql: ${timestamp_hour_of_day} BETWEEN 9 AND 17 ;;
   }
 
-  dimension: is_shared {
-    type: yesno
-    sql: ${referer_id} IS NOT NULL ;;
-  }
-
   dimension: is_wtd {
     type: yesno
     sql: ${timestamp_day_of_week_index} < EXTRACT(DAYOFWEEK FROM CURRENT_DATE());;
+  }
+
+  dimension: is_share {
+    type: yesno
+    sql: ${TABLE}.isShare ;;
   }
 
   measure: count {
@@ -163,7 +163,7 @@ view: playback {
   measure: shared_count {
     type: count
     filters: {
-      field: is_shared
+      field: is_share
       value: "yes"
     }
   }

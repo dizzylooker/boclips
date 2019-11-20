@@ -122,17 +122,3 @@ explore: collections {
       (((${retention_30d.timestamp_raw} ) >= ((TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY))) AND (${retention_30d.timestamp_raw} ) < ((TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY), INTERVAL 30 DAY))))) ;;
   }
 }
-
-explore: shared_videos {
-  join: users {
-    relationship: many_to_one
-    sql_on: ${shared_videos.referer_id} = ${users.id} ;;
-  }
-  join: retention_30d {
-    from: playback
-    fields: []
-    relationship: one_to_many
-    sql_on: ${users.id} = ${retention_30d.user_id} AND
-      (((${retention_30d.timestamp_raw} ) >= ((TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY))) AND (${retention_30d.timestamp_raw} ) < ((TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY), INTERVAL 30 DAY))))) ;;
-  }
-}
