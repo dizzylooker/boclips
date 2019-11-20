@@ -94,7 +94,13 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [name, email, parent_organisation_name, organisation_name, subjects]
+    drill_fields: [name, organisation_name, parent_organisation_name, subjects]
+  }
+
+  measure: user_count {
+    type:  count_distinct
+    drill_fields: [parent_organisation_name, count]
+    sql:  ${TABLE}.id ;;
   }
 
   measure: count_retained_30d {
