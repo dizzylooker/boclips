@@ -126,9 +126,8 @@ explore: collections {
     sql: LEFT JOIN UNNEST(collections.subjects) as single_subject ;;
 
 }
-  join: unnest_videos {
+  join: unnest_video_ids {
     relationship: one_to_many
-    sql: LEFT JOIN UNNEST(collections.video_ids) as single_video ;;
-
+    sql: LEFT JOIN UNNEST(${collections.video_ids}) as single_video_id;;
   }
 }
