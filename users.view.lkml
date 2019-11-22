@@ -29,6 +29,11 @@ view: users {
     sql: ${TABLE}.creationDate ;;
   }
 
+  dimension: creation_months_ago {
+    type: number
+    sql: FLOOR(DATE_DIFF(CURRENT_DATE(), ${creation_raw}, DAY) / 30);;
+  }
+
   dimension: first_name_raw {
     hidden: yes
     type:  string
