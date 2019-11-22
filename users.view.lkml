@@ -81,6 +81,16 @@ view: users {
     sql: ${TABLE}.organisationType ;;
   }
 
+  dimension: organisation_account_type {
+    type: string
+    sql: ${TABLE}.organisationAccountType ;;
+  }
+
+  dimension: parent_organisation_account_type {
+    type: string
+    sql: ${TABLE}.parentOrganisationAccountType ;;
+  }
+
   dimension: postcode {
     type: string
     map_layer_name: us_zipcode_tabulation_areas
@@ -122,4 +132,5 @@ view: users {
     value_format_name: percent_2
     sql: 1.00*(${count_retained_30d}/NULLIF(${count},0)) ;;
   }
+
 }
