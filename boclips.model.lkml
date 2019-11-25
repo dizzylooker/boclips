@@ -70,6 +70,11 @@ explore: search {
     relationship: many_to_many
     sql_on: ${search.user_id} = ${user_subject_facts.playback_user_id} ;;
   }
+
+  join: user_search_facts {
+    relationship: many_to_one
+    sql_on: ${search.user_id} = ${user_search_facts.userId} ;;
+  }
 }
 
 explore: simple_funnel_events {}
