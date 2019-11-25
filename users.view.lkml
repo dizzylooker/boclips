@@ -112,6 +112,16 @@ view: users {
     drill_fields: [name, organisation_name, parent_organisation_name, subjects]
   }
 
+  measure: organisation_count {
+    type: count_distinct
+    sql:  ${TABLE}.organisationName;;
+  }
+
+  measure: parent_organisation_count {
+    type: count_distinct
+    sql:  ${TABLE}.parentOrganisationName;;
+  }
+
   measure: user_count {
     type:  count_distinct
     drill_fields: [parent_organisation_name, count]
