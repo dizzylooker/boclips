@@ -25,7 +25,7 @@ dimension: days_since_last_search {
 }
 
 dimension: last_30_days_active {
-  type:  string
-  sql: IF(${days_since_last_search} <=30, "Active","NonActive");;
+  type:  yesno
+  sql: ${days_since_last_search} <=30;;
 }
 }
