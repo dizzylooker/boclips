@@ -23,4 +23,9 @@ dimension: days_since_last_search {
   type:  number
   sql: DATE_DIFF(CURRENT_DATE(), DATE(${TABLE}.last_search_timestamp), DAY) ;;
 }
+
+dimension: last_30_days_active {
+  type:  string
+  sql: IF(${days_since_last_search} <=30, "Active","NonActive");;
+}
 }

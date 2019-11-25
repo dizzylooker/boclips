@@ -63,6 +63,11 @@ explore: users {
     sql_on: ${users.id} = ${retention_30d.user_id} AND
     (((${retention_30d.timestamp_raw} ) >= ((TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY))) AND (${retention_30d.timestamp_raw} ) < ((TIMESTAMP_ADD(TIMESTAMP_ADD(TIMESTAMP_TRUNC(CURRENT_TIMESTAMP(), DAY), INTERVAL -29 DAY), INTERVAL 30 DAY))))) ;;
   }
+
+  join: user_search_facts {
+    relationship: one_to_one
+    sql_on: ${user_search_facts.userId} = ${users.id};;
+  }
 }
 
 explore: search {
