@@ -69,6 +69,14 @@ view: playback {
     sql: ${TABLE}.timestamp ;;
   }
 
+  dimension_group: since_playback {
+    type: duration
+    intervals: [hour,day,week,month,quarter,year]
+    sql_start: ${TABLE}.timestamp;;
+    sql_end: CURRENT_TIMESTAMP()
+    ;;
+  }
+
   dimension: url_host {
     type: string
     sql: ${TABLE}.urlHost ;;
