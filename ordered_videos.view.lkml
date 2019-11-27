@@ -18,4 +18,9 @@ view: ordered_videos {
     type: count
     drill_fields: [video_id]
   }
+
+  measure: count_unique_videos {
+    type: count_distinct
+    sql: ${video_id} ;;
+  }
 }
