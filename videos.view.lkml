@@ -28,10 +28,10 @@ view: videos {
     sql: ${TABLE}.title ;;
   }
 
-#   dimension: subjects {
-#     type: string
-#     sql: ${TABLE}.subjects ;;
-#   } UNNESTED ELSEWHERE...
+  dimension: type {
+    type: string
+    sql: ${TABLE}.type ;;
+  }
 
   measure: count {
     type: count
