@@ -46,6 +46,11 @@ explore: users {
     relationship: one_to_one
     sql_on: ${user_search_facts.userId} = ${users.id};;
   }
+
+  join: search{
+    relationship: many_to_one
+    sql_on: ${search.user_id} = ${users.id} ;;
+  }
 }
 
 explore: search {
