@@ -55,6 +55,21 @@ view: search {
       ;;
   }
 
+  dimension: search_30_days_active {
+    type:  yesno
+    sql:  ${days_since_search}<=30 ;;
+
+  }
+
+  measure: count_users_30d_search_active {
+    type:  count_distinct
+    filters: {
+      field:  search_30_days_active
+      value: "yes"
+    }
+    sql: ${user_id} ;;
+  }
+
   measure: count {
     type: count
     drill_fields: []
