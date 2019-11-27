@@ -47,6 +47,14 @@ view: search {
     sql: ${TABLE}.videosPlayed ;;
   }
 
+  dimension_group: since_search {
+    type: duration
+    intervals: [hour,day,week,month,quarter,year]
+    sql_start: ${TABLE}.timestamp;;
+    sql_end: CURRENT_TIMESTAMP()
+      ;;
+  }
+
   measure: count {
     type: count
     drill_fields: []
