@@ -37,4 +37,9 @@ view: videos {
     type: count
     drill_fields: [title, playback.count]
   }
+
+  measure: content_partner_count_distinct {
+    type: count_distinct
+    sql: ${content_partner} ;;
+  }
 }
