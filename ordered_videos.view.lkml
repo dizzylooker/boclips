@@ -16,7 +16,7 @@ view: ordered_videos {
 
   measure: count {
     type: count
-    drill_fields: [video_id]
+    drill_fields: [orders.created_date, videos.title, videos.content_partner]
   }
 
   measure: count_unique_videos {
